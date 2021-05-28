@@ -37,19 +37,16 @@ if __name__ == '__main__':
     dataxor = xorcrypt(data, args.key)
 
 
-if args.fileout == None:  
-    head,tail = ntpath.split(args.filename)
-    sc_filename = tail.split('.')[0]+'.xor'
+    if args.fileout is None:  
+     head,tail = ntpath.split(args.filename)
+     sc_filename = tail.split('.')[0]+'.xor'
+    else:
+     sc_filename = args.fileout
+
+	 
     sc_filepath = os.path.join(os.getcwd(),sc_filename)
     fileb = open(sc_filepath,'w')
     fileb.write(dataxor)
     fileb.close()
-else:
-    sc_filename = args.fileout
-    sc_filepath = os.path.join(os.getcwd(),sc_filename)
-    fileb = open(sc_filepath,'w')
-    fileb.write(dataxor)
-    fileb.close()
-    
-    
-print(f"[+] XOR version is written to:\n    {sc_filepath}")
+
+    print(f"[+] XOR version is written to:\n    {sc_filepath}")
