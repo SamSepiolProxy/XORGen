@@ -12,9 +12,8 @@ def get_args():
     return parser.parse_args()
 
 def readfile(filename):
-    with open(filename, 'r') as f:
-            contents = f.read()
-            print(contents)
+    with open(filename, 'rb') as f:            
+        contents = f.read()
     return contents
 
 
@@ -24,13 +23,11 @@ def xorcrypt(data, key):
     for i in range(no_of_itr):
         current = data[i]
         current_key = key[i%len(key)]
-        result += chr(ord(current) ^ ord(current_key))     
-    return result
+        result += chr(current ^ ord(current_key))     
+    return bytes(result, encoding='utf-8')
 
 if __name__ == '__main__':
     args = get_args()
-
-    files = [f for f in os.listdir('.') if os.path.isfile(f)]
 
     data = readfile(args.filename)
 
@@ -45,7 +42,7 @@ if __name__ == '__main__':
 
 	 
     sc_filepath = os.path.join(os.getcwd(),sc_filename)
-    fileb = open(sc_filepath,'w')
+    fileb = open(sc_filepath,'wb')
     fileb.write(dataxor)
     fileb.close()
 
